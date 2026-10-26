@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MindScope · Student Mental Health Score Estimator</title>
+  <meta name="description" content="MindScope uses machine learning to estimate a student mental-health-related score from submitted inputs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-shapes" id="bgShapes" aria-hidden="true"></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="MindScope home">
+      <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+        <circle cx="20" cy="20" r="17" fill="none" stroke="url(#lg)" stroke-width="2.5"/>
+        <circle cx="20" cy="20" r="9" fill="none" stroke="url(#lg)" stroke-width="2.5" stroke-dasharray="40 17" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="3" fill="url(#lg)"/>
+      </svg>
+      <span>MindScope</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="#overview">Overview</a>
+      <a href="#assessment">Assessment</a>
+      <a href="#about">About</a>
+      <a class="btn btn-primary btn-sm" href="#assessment">Start assessment</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="badge"><i class="dot"></i> ML-powered demonstration</span>
+        <h1>Understand student well-being through the habits that shape it</h1>
+        <p>MindScope uses a machine learning model to estimate a student mental-health-related score from profile, social media, study and lifestyle inputs.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#assessment">Start assessment</a>
+          <a class="btn btn-ghost" href="#overview">See what the model uses</a>
+        </div>
+      </div>
+      <div class="orbit" aria-hidden="true">
+        <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+        <div class="core"></div>
+        <span class="sat s1"></span><span class="sat s2"></span><span class="sat s3"></span>
+      </div>
+    </section>
+
+    <!-- ============ OVERVIEW CARDS ============ -->
+    <section class="section" id="overview">
+      <h2 class="reveal">What the model looks at</h2>
+      <p class="lead reveal">The estimate is built only from the twelve inputs in the assessment form, grouped into three areas.</p>
+      <div class="cards">
+        <article class="card glass reveal">
+          <h3>Student profile</h3>
+          <p>Age, gender, country and academic level.</p>
+        </article>
+        <article class="card glass reveal">
+          <h3>Digital habits</h3>
+          <p>Most-used platform, purpose of use, daily usage hours and daily phone unlocks.</p>
+        </article>
+        <article class="card glass reveal">
+          <h3>Study and lifestyle</h3>
+          <p>Study hours, physical activity, nightly sleep and self-reported stress level.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ ASSESSMENT FORM ============ -->
+    <section class="section" id="assessment">
+      <h2 class="reveal">Student assessment</h2>
+      <p class="lead reveal">Fill in every field, then run the model. Hours are per day unless noted.</p>
+
+      <div class="alert" id="formAlert" role="alert" hidden></div>
+
+      <form id="assessmentForm" class="glass form reveal" novalidate>
+        <fieldset>
+          <legend>Student profile</legend>
+          <div class="grid">
+            <div class="field">
+              <label for="age">Age</label>
+              <input type="number" id="age" name="age" data-type="int" min="10" max="100" step="1" placeholder="e.g. 20" required>
+              <small>Whole years, 10 to 100.</small><span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender" required>
+                <option value="" disabled selected>Select gender</option>
+                <option>Male</option><option>Female</option>
+              </select>
+              <small>As accepted by the model.</small><span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="country">Country</label>
+              <input type="text" id="country" name="country" list="countryList" placeholder="e.g. India" autocomplete="off" required>
+              <datalist id="countryList">
+                <option value="India"><option value="USA"><option value="Canada"><option value="Australia"><option value="UK">
+                <option value="Germany"><option value="Mexico"><option value="Turkey"><option value="France">
+              </datalist>
+              <small>Type any country or pick a suggestion.</small><span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="academic_level">Academic level</label>
+              <select id="academic_level" name="academic_level" required>
+                <option value="" disabled selected>Select level</option>
+                <option>High School</option><option>Undergraduate</option><option>Graduate</option>
+              </select>
+              <small>Current stage of study.</small><span class="err" aria-live="polite"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Digital habits</legend>
+          <div class="grid">
+            <div class="field">
+              <label for="most_used_platform">Most used platform</label>
+              <select id="most_used_platform" name="most_used_platform" required>
+                <option value="" disabled selected>Select platform</option>
+                <option>Facebook</option><option>Instagram</option><option>TikTok</option><option>YouTube</option>
+                <option>Snapchat</option><option>Twitter</option><option>LinkedIn</option><option>WhatsApp</option>
+                <option>WeChat</option><option>LINE</option><option>KakaoTalk</option><option>VKontakte</option>
+              </select>
+              <small>The app used most often.</small><span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="purpose_of_use">Main purpose of use</label>
+              <select id="purpose_of_use" name="purpose_of_use" required>
+                <option value="" disabled selected>Select purpose</option>
+                <option>Networking</option><option>Education</option><option>Entertainment</option><option>News</option>
+              </select>
+              <small>Why you mostly use it.</small><span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="avg_daily_usage_hours">Daily social media use</label>
+              <input type="number" id="avg_daily_usage_hours" name="avg_daily_usage_hours" data-type="float" min="0" max="24" step="0.1" placeholder="e.g. 4.5" required>
+              <small>Hours per day, 0 to 24.</small><span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="daily_unlocks">Daily phone unlocks</label>
+              <input type="number" id="daily_unlocks" name="daily_unlocks" data-type="int" min="0" step="1" placeholder="e.g. 60" required>
+              <small>Whole number, 0 or more.</small><span class="err" aria-live="polite"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Study and lifestyle</legend>
+          <div class="grid">
+            <div class="field">
+              <label for="study_hours">Study hours</label>
+              <input type="number" id="study_hours" name="study_hours" data-type="float" min="0" max="24" step="0.1" placeholder="e.g. 3" required>
+              <small>Hours per day, 0 to 24.</small><span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="physical_activity_hours">Physical activity</label>
+              <input type="number" id="physical_activity_hours" name="physical_activity_hours" data-type="float" min="0" max="24" step="0.1" placeholder="e.g. 1" required>
+              <small>Hours per day, 0 to 24.</small><span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="sleep_hours_per_night">Sleep per night</label>
+              <input type="number" id="sleep_hours_per_night" name="sleep_hours_per_night" data-type="float" min="0" max="24" step="0.1" placeholder="e.g. 7" required>
+              <small>Hours per night, 0 to 24.</small><span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="stress_level">Stress level</label>
+              <select id="stress_level" name="stress_level" required>
+                <option value="" disabled selected>Select stress level</option>
+                <option>Low</option><option>Medium</option><option>High</option><option>Very High</option>
+              </select>
+              <small>Your own assessment.</small><span class="err" aria-live="polite"></span>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="reset" class="btn btn-ghost" id="resetBtn">Reset form</button>
+          <button type="submit" class="btn btn-primary" id="predictBtn">Predict score</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============ RESULT ============ -->
+    <section class="section" id="resultSection" hidden aria-labelledby="resultTitle">
+      <div class="result glass" id="resultCard" tabindex="-1">
+        <div class="gauge">
+          <svg viewBox="0 0 220 220" aria-hidden="true">
+            <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+            <circle class="track" cx="110" cy="110" r="90"/>
+            <circle class="bar" id="gaugeBar" cx="110" cy="110" r="90"/>
+          </svg>
+          <div class="gauge-num"><strong id="scoreValue">0.00</strong><span>model estimate</span></div>
+        </div>
+        <div class="result-copy">
+          <h2 id="resultTitle">Your estimated score</h2>
+          <p id="resultText"></p>
+          <p class="note" id="scaleNote"></p>
+          <button class="btn btn-primary" id="againBtn" type="button">New assessment</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about">
+      <h2 class="reveal">About MindScope</h2>
+      <p class="lead reveal">MindScope is a portfolio project that connects a trained regression model, served through FastAPI, to a browser interface. Each submission is sent to the model and the number it returns is shown as-is. It is a learning demonstration, not a screening tool.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <strong>MindScope</strong>
+    <p>A machine learning demonstration that estimates a student mental-health-related score from submitted inputs.</p>
+    <p class="disclaimer">Disclaimer: the prediction is an experimental ML estimate. It is not a clinical diagnosis and does not replace a professional mental-health assessment. If you are worried about your well-being, please talk to a qualified professional.</p>
+  </footer>
+
+  <!-- ============ LOADING OVERLAY ============ -->
+  <div class="loader" id="loader" hidden role="status" aria-live="polite">
+    <div class="loader-box glass">
+      <div class="scan"><span></span></div>
+      <p>Generating your prediction…</p>
+    </div>
+  </div>
+
+  <!-- Screen-reader announcements -->
+  <div class="sr-only" id="announcer" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
