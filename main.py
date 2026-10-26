@@ -42,12 +42,13 @@ class PredictionResponse(BaseModel):
     #6.777777 -> float
 
 
-
-
 @app.get('/')
 def greet():
-    return {'Welcome to Sheryians AI School Guys'}
-
+    return {
+        "message": "Welcome to my Student Mental Health Score Prediction project!",
+        "description": "This application uses machine learning to predict a mental health score based on student lifestyle, academic routine, and digital habits.",
+        "docs": "/docs"
+    }
 
 @app.post('/predict', response_model=PredictionResponse) #6.77777
 def predict(data: StudentData):
