@@ -5,7 +5,7 @@
 "use strict";
 
 // ---------- Configuration ----------
-const API_URL = "https://mental-health-score-model-1-y93o.onrender.com";
+const API_URL = "https://mental-health-score-model-1-y93o.onrender.com/predict";
 
 // The backend does not define a score range. This value is ONLY used to size
 // the decorative progress ring (score / RING_SCALE_MAX, clamped to 0–1).
